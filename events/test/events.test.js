@@ -1,5 +1,5 @@
 import { EventEmitter } from '../index.js';
-import { setup, test, assert, suite, teardown } from './util/tools.js';
+import { setup, test, assert, suite, teardown } from '/test/util/tools.js';
 
 suite('EventEmitter', () => {
     suite('#event', () => {
