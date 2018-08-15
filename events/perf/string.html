@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script type="module">
+        import EventEmitter from './event-emitter.js';
+
+        const emitters = [];
+
+        const TOTAL_EMITTER = 1000;
+
+        function run() {
+            for (let i = 0; i < TOTAL_EMITTER; i += 1) {
+                const emitter = new EventEmitter();
+                const eventName = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+                emitter.on(eventName, () => {});
+                emitter.emit(eventName);
+                emitters.push(emitter);
+            }
+        }
+        console.time();
+        run();
+        console.timeEnd();
+        window.emitters = emitters;
+        console.log('done');
+    </script>
+</body>
+</html>
