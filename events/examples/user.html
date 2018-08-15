@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+    </head>
+    <body>
+        <script type="module">
+            import { User } from './user.js';
+            const user = new User();
+            const disposables = [];
+            console.log('User created');
+            const will = user.onWillLogin(() => {
+                console.log('User will login');
+            }, null, disposables);
+            const did = user.onDidLogin(function (event) {
+                this.log('User did login', event);
+                disposables.forEach((d) => d.dispose());
+                user.login();
+            }, { log: console.log }, disposables);
+            user.login();
+        </script>
+    </body>
+</html>
