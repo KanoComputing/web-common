@@ -1,20 +1,12 @@
 export class EventEmitter {
-    constructor() {
-        this._event = null;
-        this._listeners = null;
-        this._deliveryQueue = null;
-
-        this._noop = () => {};
-    }
+    static _noop() {}
     get event() {
         if (!this._event) {
             this._event = (listener, thisArg, disposables) => {
                 if (!this._listeners) {
                     this._listeners = [];
                 }
-
                 const addedListener = this._listeners.push(!thisArg ? listener : [listener, thisArg]);
-
                 const result = {
                     dispose: () => {
                         result.dispose = EventEmitter._noop;
