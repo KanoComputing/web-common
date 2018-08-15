@@ -28,8 +28,8 @@ Once compressed with mangling, every event name from the named method has to be 
 
 ## Table
 
-|   | Named  | String  |
-|---|---|---|---|---|
+|   |Named|String|
+|---|---|---|
 | Memory (Shallow)  | 48k  | 32k  |
 | Memory (Retained)  | 432k  | 584k  |
 | CPU  | 4ms  |  18ms |
