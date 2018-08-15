@@ -4,5 +4,9 @@
   "main": "index.js",
   "repository": "git@github.com:KanoComputing/web-common.git",
   "author": "Paul Varache <paul@kano.me>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
+  }
 }

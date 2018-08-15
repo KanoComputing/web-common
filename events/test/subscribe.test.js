@@ -1,5 +1,5 @@
 import { subscribeDOM, subscribe } from '../index.js';
-import { setup, test, assert, suite } from './util/tools.js';
+import { setup, test, assert, suite } from '/test/util/tools.js';
 
 suite('Util', () => {
     suite('#subscribeDOM', () => {
