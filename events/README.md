@@ -44,4 +44,4 @@ This module follows vscode's pattern for events: [VSCode - Events Patterns And P
 
 ## Test
 
-Start a local server at the root of this module and open /test/index.html`
+Start a local server at the root of this module and open /events/test/index.html`

@@ -24,3 +24,4 @@ import { EventEmitter, subscribe } from '@kano/common/index.js';
 
 ## [Events](./events)
 ## [Disposable](./disposable)
+## [Time](./time)
