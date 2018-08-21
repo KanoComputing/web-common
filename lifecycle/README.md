@@ -1,6 +1,6 @@
-# Disposable
+# Lifecycle
 
-Provides a manager for disposable instances.
+Provides lifecycle management using the Disposbale pattern
 
 ## Example
 
@@ -24,3 +24,5 @@ subscriptions.dispose();
 Disposables
  - push(...disposables): Adds disposable instances to the manager
  - dispose(): Calls dispose on all the disposable instances managed
+Disposable
+ - None: An empty dispoable item. calling dispose will call a noop

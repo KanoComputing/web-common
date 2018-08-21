@@ -1,3 +1,10 @@
+export const Event = {
+    get None() {
+        const _disposable = { dispose() { } };
+        return function () { return _disposable; };
+    }
+}
+
 export class EventEmitter {
     static _noop() {}
     get event() {

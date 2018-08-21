@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Editor Tests</title>
+        <title>Cancellation Tests</title>
         <link rel="stylesheet" href="/node_modules/mocha/mocha.css">
         <script src="/node_modules/mocha/mocha.js"></script>
         <script src="/node_modules/chai/chai.js"></script>
@@ -15,7 +15,7 @@
             import { loadTests } from '/test/util/run.js';
 
             loadTests({
-                events: '/disposable/test/disposables.test.js',
+                cancellation: '/cancellation/test/cancellation.test.js',
             });
         </script>
     </body>

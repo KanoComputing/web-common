@@ -11,4 +11,8 @@ export class Disposables {
     }
 }
 
+export const Disposable = {
+    None: { dispose() {} },
+};
+
 export default Disposables;
