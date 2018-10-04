@@ -1,5 +1,4 @@
 import { CancellationTokenSource } from '../index.js';
-import { test, assert, suite } from '/test/util/tools.js';
 
 suite('CancellationTokenSource', () => {
     suite('cancel', () => {

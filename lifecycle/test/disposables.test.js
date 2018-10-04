@@ -1,5 +1,4 @@
 import { Disposables } from '../index.js';
-import { setup, test, suite, teardown } from '/test/util/tools.js';
 
 suite('Disposables', () => {
     let disposables;

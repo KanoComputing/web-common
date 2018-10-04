@@ -1,5 +1,4 @@
 import { subscribeTimeout, subscribeInterval } from '../index.js';
-import { test, assert, suite } from '/test/util/tools.js';
 
 suite('Time', () => {
     suite('subscribeTimeout', () => {

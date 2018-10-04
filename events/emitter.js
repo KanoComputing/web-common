@@ -1,9 +1,9 @@
 export const Event = {
     get None() {
         const _disposable = { dispose() { } };
-        return function () { return _disposable; };
-    }
-}
+        return function none() { return _disposable; };
+    },
+};
 
 export class EventEmitter {
     static _noop() {}
@@ -13,7 +13,8 @@ export class EventEmitter {
                 if (!this._listeners) {
                     this._listeners = [];
                 }
-                const addedListener = this._listeners.push(!thisArg ? listener : [listener, thisArg]);
+                const addedListener = this._listeners.push(!thisArg ?
+                    listener : [listener, thisArg]);
                 const result = {
                     dispose: () => {
                         result.dispose = EventEmitter._noop;
@@ -22,48 +23,48 @@ export class EventEmitter {
                         }
                         const index = this._listeners.indexOf(addedListener);
                         this._listeners.splice(index, 1);
-                    }
+                    },
                 };
                 if (Array.isArray(disposables)) {
-					disposables.push(result);
+                    disposables.push(result);
                 }
                 return result;
-            }
+            };
         }
         return this._event;
     }
     fire(event) {
-		if (this._listeners) {
-			// put all [listener,event]-pairs into delivery queue
-			// then emit all event. an inner/nested event might be
-			// the driver of this
-			if (!this._deliveryQueue) {
-				this._deliveryQueue = [];
+        if (this._listeners) {
+            // put all [listener,event]-pairs into delivery queue
+            // then emit all event. an inner/nested event might be
+            // the driver of this
+            if (!this._deliveryQueue) {
+                this._deliveryQueue = [];
             }
-            
+
             this._listeners.forEach((listener) => {
                 this._deliveryQueue.push([listener, event]);
             });
 
-			while (this._deliveryQueue.length > 0) {
-				const [listener, event] = this._deliveryQueue.shift();
+            while (this._deliveryQueue.length > 0) {
+                const [listener, e] = this._deliveryQueue.shift();
                 if (typeof listener === 'function') {
-                    listener.call(undefined, event);
+                    listener.call(undefined, e);
                 } else {
-                    listener[0].call(listener[1], event);
+                    listener[0].call(listener[1], e);
                 }
-			}
-		}
+            }
+        }
     }
     dispose() {
-		if (this._listeners) {
-			this._listeners = null;
-		}
-		if (this._deliveryQueue) {
-			this._deliveryQueue.length = 0;
-		}
-		this._disposed = true;
-	}
+        if (this._listeners) {
+            this._listeners = null;
+        }
+        if (this._deliveryQueue) {
+            this._deliveryQueue.length = 0;
+        }
+        this._disposed = true;
+    }
 }
 
 export const subscribeDOM = (emitter, name, listener, thisArg, disposables) => {
