@@ -26,3 +26,6 @@ Disposables
  - dispose(): Calls dispose on all the disposable instances managed
 Disposable
  - None: An empty dispoable item. calling dispose will call a noop
+dispose(...disposables): Calls dispose on all given disposable or array of disposable
+combinedDisposable(Disposable[]): Creates a single disposable from a set
+toDisposable(Function): Returns a disposable for a given function

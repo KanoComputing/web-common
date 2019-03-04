@@ -4,14 +4,18 @@
 
 pipeline {
     agent {
-        label 'ubuntu_18.04'
+        label 'ubuntu_18.04_with_docker'
     }
     post {
         always {
             junit allowEmptyResults: true, testResults: 'test-results.xml'
+            cobertura coberturaReportFile: 'coverage/cobertura-coverage.xml'
             step([$class: 'CheckStylePublisher', pattern: 'eslint.xml'])
         }
         regression {
+            notify_culprits currentBuild.result
+        }
+        fixed {
             notify_culprits currentBuild.result
         }
     }
@@ -21,35 +25,31 @@ pipeline {
                 checkout scm
             }
         }
-        stage('tools') {
-            steps {
-                script {
-                    def NODE_PATH = tool 'Node 8.11.2'
-                    env.PATH = "${env.PATH}:${NODE_PATH}/bin"
-                    def YARN_PATH = tool 'yarn'
-                    env.PATH = "${env.PATH}:${YARN_PATH}/bin"
-                }
-            }
-        }
         stage('install dependencies') {
             steps {
                 script {
-                    sh "yarn"
+                    docker.image('node:8-alpine').inside {
+                        sh "yarn"
+                    }
                 }
             }
         }
         stage('checkstyle') {
             steps {
                 script {
-                    sh "yarn checkstyle-ci"
+                    docker.image('node:8-alpine').inside {
+                        sh "yarn lint-ci"
+                    }
                 }
             }
         }
         stage('test') {
             steps {
                 script {
-                    install_chrome_dependencies()
-                    sh "yarn test-ci"
+                    docker.image('kanocomputing/puppeteer').inside('--cap-add=SYS_ADMIN') {
+                        sh "yarn test-ci"
+                        sh "yarn coverage-ci"
+                    }
                 }
             }
         }

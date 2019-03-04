@@ -2,3 +2,5 @@ test
 examples
 README.md
 perf
+Jenkinsfile
+*.test.js
