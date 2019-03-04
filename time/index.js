@@ -6,7 +6,7 @@ export function subscribeTimeout(callback, timeout, thisArg, disposables) {
             clearTimeout(id);
         },
     };
-    if (Array.isArray(disposables)) {
+    if (disposables && typeof disposables.push === 'function') {
         disposables.push(result);
     }
     return result;
@@ -20,7 +20,7 @@ export function subscribeInterval(callback, timeout, thisArg, disposables) {
             clearInterval(id);
         },
     };
-    if (Array.isArray(disposables)) {
+    if (disposables && typeof disposables.push === 'function') {
         disposables.push(result);
     }
     return result;

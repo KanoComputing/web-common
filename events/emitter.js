@@ -25,7 +25,7 @@ export class EventEmitter {
                         this._listeners.splice(index, 1);
                     },
                 };
-                if (Array.isArray(disposables)) {
+                if (disposables && typeof disposables.push === 'function') {
                     disposables.push(result);
                 }
                 return result;
@@ -77,7 +77,7 @@ export const subscribeDOM = (emitter, name, listener, thisArg, disposables) => {
             emitter.removeEventListener(name, callback);
         },
     };
-    if (Array.isArray(disposables)) {
+    if (disposables && typeof disposables.push === 'function') {
         disposables.push(result);
     }
     return result;
@@ -93,7 +93,7 @@ export const subscribe = (emitter, name, listener, thisArg, disposables) => {
             emitter.removeListener(name, callback);
         },
     };
-    if (Array.isArray(disposables)) {
+    if (disposables && typeof disposables.push === 'function') {
         disposables.push(result);
     }
     return result;

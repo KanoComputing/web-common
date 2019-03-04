@@ -6,19 +6,21 @@
   "author": "Paul Varache <paul@kano.me>",
   "license": "MIT",
   "scripts": {
-    "serve-test": "web-tester serve ./test",
-    "test": "web-tester run ./test",
-    "test-ci": "yarn run --silent test > test-results.xml",
-    "checkstyle": "eslint ./index.js ./cancellation/index.js ./events/index.js ./events/emitter.js ./lifecycle/index.js ./lifecycle/disposables.js ./time/index.js",
-    "checkstyle-ci": "yarn checkstyle -f checkstyle -o eslint.xml",
+    "serve-test": "web-tester serve **/*.test.js",
+    "test": "web-tester run **/*.test.js",
+    "test-ci": "yarn run --silent test -r xunit > test-results.xml",
+    "coverage": "web-tester cover **/*.test.js",
+    "coverage-ci": "yarn run --silent coverage -r cobertura",
+    "lint": "eslint ./index.js ./cancellation/index.js ./events/index.js ./events/emitter.js ./lifecycle/index.js ./lifecycle/disposables.js ./time/index.js",
+    "lint-ci": "yarn lint -f checkstyle -o eslint.xml",
     "prepublishOnly": "yarn checkstyle"
   },
   "devDependencies": {
     "@kano/eslint-config": "^1.0.0",
+    "@kano/web-tester": "^1.0.0-alpha.14",
     "chai": "^4.1.2",
-    "eslint-plugin-import": "^2.14.0",
-    "mocha": "^5.2.0",
     "eslint": "^4.19.1",
-    "@kano/web-tester": "^1.0.0-alpha.3"
+    "eslint-plugin-import": "^2.14.0",
+    "mocha": "^5.2.0"
   }
 }
