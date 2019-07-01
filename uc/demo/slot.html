@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Nesting controllers and views with slots</title>
+</head>
+<body>
+    <script type="module">
+        import { DOMController } from '../dist/dom/dom-controller.js';
+        import { SlotController } from '../dist/dom/slot-controller.js';
+
+        /**
+         * This time we create a custom element as view. This will be able to declare the template,
+         * style the UI logic for the view
+         */
+        class MyEl extends HTMLElement {
+            connectedCallback() {
+                this.root = this.attachShadow({ mode: 'open' });
+
+                // Some template and styles.
+                // It displays an image with a slot on each side
+                this.root.innerHTML = `
+                    <style>
+                        :host {
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                        }
+                        section {
+                            border: 3px solid black;
+                            width: 64px;
+                            height: 64px;
+                        }
+                    </style>
+                    <section>
+                        <slot name="left"></slot>
+                    </section>
+                    <img src="https://www.placecage.com/200/300" />
+                    <section>
+                        <slot name="right"></slot>
+                    </section>
+                `;
+            }
+        }
+
+        customElements.define('my-el', MyEl);
+        
+        /**
+         * Basic controller, uses a simple h1 as its view
+         */
+        class SlotControllerExample extends DOMController {
+            constructor() {
+                super();
+                // Create the two SlotControllers with the name given to each slots
+                this.leftCtrls = new SlotController(this, 'left');
+                this.rightCtrls = new SlotController(this, 'right');
+            }
+            getTagName() {
+                return 'my-el';
+            }
+            addRight(c) {
+                this.rightCtrls.add(c);
+            }
+            addLeft(c) {
+                this.leftCtrls.add(c);
+            }
+        }
+
+        /**
+         * Another simple controller, used to fill the slots
+         */
+         class ButtonController extends DOMController {
+            constructor(t) {
+                super();
+                this.text = t;
+            }
+            getTagName() {
+                return 'button';
+            }
+            createDOM() {
+                const d = super.createDOM();
+                d.innerText = this.text;
+                return d;
+            }
+        }
+
+        const f = new SlotControllerExample();
+
+        f.addLeft(new ButtonController('NIC'));
+        f.addRight(new ButtonController('CAGE'));
+
+        f.inject(document.body);
+    </script>
+</body>
+</html>

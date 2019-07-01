@@ -90,12 +90,32 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@kano/es6-resolution@^1.0.20":
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/@kano/es6-resolution/-/es6-resolution-1.0.20.tgz#5beb3cf09f9b2b29f9e0a865e7b047888680b790"
+  integrity sha512-bTKy6quIkoJifHdI1cujW3NS4oBL0AjJn14xUM7kGrhj3yT4U0fwbsISdtB3dvDiYxPCsNHk9h67EWXGHnGwGg==
+  dependencies:
+    resolve "^1.7.1"
+
 "@kano/es6-resolution@^1.0.8":
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/@kano/es6-resolution/-/es6-resolution-1.0.10.tgz#c8b687cafa2598c9c89a27655392e386fdec76c8"
   integrity sha512-JC3YcrJ3YNpCq4xH1uf0APANYCfZvficBSEc1gM1S5Iw7Qi7cU0QOpL5hCNBJCp9G/Mb47zDZjPud9EeCLQlmQ==
   dependencies:
     resolve "^1.7.1"
+
+"@kano/es6-server@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@kano/es6-server/-/es6-server-1.0.3.tgz#3d3e32758b918f41d241f531f1edad84a1b967e0"
+  integrity sha512-Sh0jzuMpGe1NI91Yu0HiXeThcKSIfi4SH63d04a7rJr8PMCxiRau+F50MxYF/CBoK1Iml760RFrKOo8R2saNmA==
+  dependencies:
+    "@kano/es6-resolution" "^1.0.20"
+    chalk "^2.4.2"
+    connect "^3.6.6"
+    mime "^2.3.1"
+    node-text-chunk "^0.1.1"
+    serve-static "^1.13.2"
+    sywac "^1.2.1"
 
 "@kano/eslint-config@^1.0.0":
   version "1.0.0"
@@ -1942,6 +1962,11 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
+
+typescript@^3.5.2:
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.5.2.tgz#a09e1dc69bc9551cadf17dba10ee42cf55e5d56c"
+  integrity sha512-7KxJovlYhTX5RaRbUdkAXN1KUZ8PwWlTzQdHV6xNqvuFOs7+WBo10TQUqT19Q/Jz2hk5v9TQDIhyLhhJY4p5AA==
 
 uglify-js@^3.1.4:
   version "3.4.9"

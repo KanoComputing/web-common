@@ -13,14 +13,18 @@
     "coverage-ci": "yarn run --silent coverage -r cobertura",
     "lint": "eslint ./index.js ./cancellation/index.js ./events/index.js ./events/emitter.js ./lifecycle/index.js ./lifecycle/disposables.js ./time/index.js",
     "lint-ci": "yarn lint -f checkstyle -o eslint.xml",
-    "prepublishOnly": "yarn lint"
+    "prepublishOnly": "yarn tsc && yarn lint",
+    "tsc": "tsc",
+    "serve": "es6-server"
   },
   "devDependencies": {
+    "@kano/es6-server": "^1.0.3",
     "@kano/eslint-config": "^1.0.0",
     "@kano/web-tester": "^1.0.0-alpha.14",
     "chai": "^4.1.2",
     "eslint": "^4.19.1",
     "eslint-plugin-import": "^2.14.0",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "typescript": "^3.5.2"
   }
 }
