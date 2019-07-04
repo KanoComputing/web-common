@@ -1,7 +1,6 @@
 import { EventEmitter } from '../../../events/emitter.js';
-import { DOMEventProxy } from './dom-event-proxy.js';
+import { DOMEventProxy, EventDataTransformer } from './dom-event-proxy.js';
 import { Controller } from '../controller.js';
-
 
 export abstract class DOMController<T extends HTMLElement = HTMLElement> extends Controller<T> {
     protected view?: T;
@@ -16,9 +15,9 @@ export abstract class DOMController<T extends HTMLElement = HTMLElement> extends
     createView() {
         return this.createDOM();
     }
-    registerDOMEvent<T>(name: string) {
+    registerDOMEvent<T>(name: string, transform? : EventDataTransformer) {
         const e = new EventEmitter<T>();
-        const proxy = new DOMEventProxy<T>(e);
+        const proxy = new DOMEventProxy<T>(e, transform);
         this.domEmitters.set(name, proxy);
         return e.event;
     }
