@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Props in a controller</title>
+</head>
+<body>
+    <script type="module">
+        import { DOMController } from '../dist/dom/dom-controller.js';
+        
+        /**
+         * Basic controller, uses a simple h1 as its view
+         */
+        class PropController extends DOMController {
+            getTagName() {
+                return 'h1';
+            }
+            /**
+             * Set name just saves a copy of the value and ask to update the view
+             */
+            setValue(v) {
+                this.value = v;
+                this.update();
+                // Here is the business logic. It simply updates the view with the correct data.
+                // The color is computed using logic separated from the view
+                // This can be very easily tested by mocking the view.
+                // THis example is a bit stupid as in the real world, it is very likely that color
+                // would be part of the UI logic of the view, but this is an example of how
+                // to control the dom properties from the controller
+                d.innerText = this.value;
+                d.style.color = this.value < 0.5 ? 'red' : 'blue';
+            }
+        }
+
+        const f = new PropController();
+
+        f.setValue(Math.random());
+
+        setInterval(() => {
+            f.setValue(Math.random());
+        }, 500);
+
+        f.inject(document.body);
+    </script>
+</body>
+</html>

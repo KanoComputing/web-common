@@ -30,6 +30,7 @@ pipeline {
                 script {
                     docker.image('node:8-alpine').inside {
                         sh "yarn"
+                        sh "yarn tsc"
                     }
                 }
             }

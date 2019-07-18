@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Testing a controller's business logic</title>
+</head>
+<body>
+    <script type="module">
+        import { DOMController } from '../dist/dom/dom-controller.js';
+        import { simulateDOMEvent, createDummyDOMNode } from '../dist/dom/test-helpers.js';
+        
+        /**
+         * This is the controller used in the EventController demo, we will write a test for its
+         * business logic
+         */
+        class EventController extends DOMController {
+            constructor() {
+                super();
+                // Create an EventEmitter that proxies the click event from the view (In this case, button)
+                this.onDidClick = this.registerDOMEvent('click');
+            }
+            getTagName() {
+                return 'button';
+            }
+            createDOM() {
+                // Let the DOM controller create the element, but update the text for the demo
+                const d = super.createDOM();
+                d.innerText = 'Click me';
+                return d;
+            }
+            /**
+             * Disable simply sets the property on the button.
+             * In areal world example, you would probably keep a copy of the disabled state in
+             * the controller, perhaps to adapt your business logic to that disabled state
+             */
+            disable() {
+                const d = this.getRoot();
+                d.disabled = true;
+            }
+        }
+
+        const f = new EventController();
+
+        /**
+         * This is a stub function similar to what sinon would provide
+         */
+        function stub(inst, name, returnValue) {
+            let call = null;
+            inst[name] = function (...args) {
+                call = args;
+                inst[name].called = true;
+                return returnValue;
+            };
+            return inst[name];
+        }
+
+        // CReate a fake view. This would simulate the DOM tree.
+        // Simple object here as we only need to check a prop has been set
+        const fakeView = createDummyDOMNode();
+
+        // Stub the createView method to return our own view
+        const s = stub(f, 'createView', fakeView);
+
+        // Call the method to test
+        f.disable();
+
+        // Test passes if the value of disabled is set to true
+        document.body.innerHTML += fakeView.disabled ? 'Test passed' : 'Test failed';
+        
+        // Listen to the controllr event
+        f.onDidClick(() => {
+            document.body.innerHTML += 'Event fired';
+        });
+
+        // Simulate a DOM event on the controller root
+        simulateDOMEvent(f, new MouseEvent('click'));
+    </script>
+</body>
+</html>

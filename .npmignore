@@ -4,3 +4,5 @@ README.md
 perf
 Jenkinsfile
 *.test.js
+uc/demo
+uc/src
